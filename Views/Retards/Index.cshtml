@@ -21,7 +21,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.DatePret)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -38,9 +37,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DatePret)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
             </td>
         </tr>
 }
