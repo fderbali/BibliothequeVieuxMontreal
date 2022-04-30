@@ -153,9 +153,21 @@ namespace BibliothequeVieuxMontreal.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var pret = await _context.Prets.FindAsync(id);
-            _context.Prets.Remove(pret);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            ViewBag.pret = pret;
+            if (DateTime.Today.Date > pret.DateFin)
+            {
+                ViewBag.message = "❌ Vous êtes en retard ! 😠";
+                ViewBag.typeMessage = "danger";
+            }
+            else
+            {
+                ViewBag.message = "✔ Livre rendu dans les délais ! Merci 😊" + DateTime.Today.Date +"----"+ pret.DateFin;
+                ViewBag.typeMessage = "success";
+            }
+            //_context.Prets.Remove(pret);
+            //await _context.SaveChangesAsync();
+            ViewBag.idMembre = pret.IdMembre;
+            return View(pret);
         }
 
         private bool PretExists(int id)

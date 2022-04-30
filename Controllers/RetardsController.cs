@@ -20,9 +20,17 @@ namespace BibliothequeVieuxMontreal.Controllers
         }
 
         // GET: Retards
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            return View(await _context.Retards.ToListAsync());
+            if (id == null)
+            {
+                return View(await _context.Retards.ToListAsync());
+            } 
+            else
+            { 
+                return View(await _context.Retards.Where(m => m.IdMembre == id).ToListAsync());
+            }
+
         }
 
         // GET: Retards/Details/5
