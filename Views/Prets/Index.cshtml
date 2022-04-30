@@ -6,9 +6,6 @@
 
 <h1>Liste des prêts</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Créer un nouveau prêt</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -43,7 +40,10 @@
                 @Html.DisplayFor(modelItem => item.IdMembreNavigation.Nom)
             </td>
             <td>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>&nbsp;Retour</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
+                    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                    &nbsp;Retour
+                </a>
             </td>
         </tr>
 }
