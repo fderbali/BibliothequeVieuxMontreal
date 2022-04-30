@@ -49,7 +49,7 @@ namespace BibliothequeVieuxMontreal.Controllers
         // GET: Prets/Create
         public IActionResult Create()
         {
-            ViewData["IdLivre"] = new SelectList(_context.Livres, "Id", "Auteur");
+            ViewData["IdLivre"] = new SelectList(_context.Livres, "Id", "Titre");
             ViewData["IdMembre"] = new SelectList(_context.Membres, "Id", "Nom");
             return View();
         }
@@ -59,8 +59,10 @@ namespace BibliothequeVieuxMontreal.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdLivre,IdMembre,DateDebut,DateFin")] Pret pret)
+        public async Task<IActionResult> Create([Bind("Id,IdLivre,IdMembre,DateDebut")] Pret pret)
         {
+            pret.DateDebut = DateTime.Now;
+            pret.DateFin = pret.DateDebut.AddDays(7);
             _context.Add(pret);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -79,7 +81,7 @@ namespace BibliothequeVieuxMontreal.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdLivre"] = new SelectList(_context.Livres, "Id", "Auteur", pret.IdLivre);
+            ViewData["IdLivre"] = new SelectList(_context.Livres, "Id", "Titre", pret.IdLivre);
             ViewData["IdMembre"] = new SelectList(_context.Membres, "Id", "Nom", pret.IdMembre);
             return View(pret);
         }
@@ -116,7 +118,7 @@ namespace BibliothequeVieuxMontreal.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdLivre"] = new SelectList(_context.Livres, "Id", "Auteur", pret.IdLivre);
+            ViewData["IdLivre"] = new SelectList(_context.Livres, "Id", "Titre", pret.IdLivre);
             ViewData["IdMembre"] = new SelectList(_context.Membres, "Id", "Nom", pret.IdMembre);
             return View(pret);
         }
