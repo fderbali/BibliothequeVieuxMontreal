@@ -61,15 +61,9 @@ namespace BibliothequeVieuxMontreal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,IdLivre,IdMembre,DateDebut,DateFin")] Pret pret)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(pret);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdLivre"] = new SelectList(_context.Livres, "Id", "Auteur", pret.IdLivre);
-            ViewData["IdMembre"] = new SelectList(_context.Membres, "Id", "Nom", pret.IdMembre);
-            return View(pret);
+            _context.Add(pret);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Prets/Edit/5
@@ -164,8 +158,8 @@ namespace BibliothequeVieuxMontreal.Controllers
                 ViewBag.message = "✔ Livre rendu dans les délais ! Merci 😊" + DateTime.Today.Date +"----"+ pret.DateFin;
                 ViewBag.typeMessage = "success";
             }
-            //_context.Prets.Remove(pret);
-            //await _context.SaveChangesAsync();
+            _context.Prets.Remove(pret);
+            await _context.SaveChangesAsync();
             ViewBag.idMembre = pret.IdMembre;
             return View(pret);
         }
