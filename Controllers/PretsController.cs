@@ -152,6 +152,14 @@ namespace BibliothequeVieuxMontreal.Controllers
             {
                 ViewBag.message = "❌ Vous êtes en retard ! 😠";
                 ViewBag.typeMessage = "danger";
+                // Insertion dans la table retard :
+                var retard = new Retard();
+                retard.IdMembre = pret.IdMembre;
+                retard.IdLivre = pret.IdLivre;
+                retard.DatePret = pret.DateDebut;
+                retard.Nbjour = (int)DateTime.Today.Date.Subtract(pret.DateFin).TotalDays;
+                _context.Add(retard);
+                await _context.SaveChangesAsync();
             }
             else
             {
