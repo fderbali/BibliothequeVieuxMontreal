@@ -165,7 +165,7 @@ namespace BibliothequeVieuxMontreal.Controllers
             }
             else
             {
-                ViewBag.message = "✔ Livre rendu dans les délais ! Merci 😊" + DateTime.Today.Date +"----"+ pret.DateFin;
+                ViewBag.message = "✔ Livre rendu dans les délais ! Merci 😊";
                 ViewBag.typeMessage = "success";
             }
             _context.Prets.Remove(pret);
